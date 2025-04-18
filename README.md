@@ -28,7 +28,8 @@ The result figures will be saved in the output folder ('./results' by default)
 
 <img src="results/IoU_radar_plot.png" width="300"/> <img src="results/overall_IoU_plot.png" width="377"/> 
 
-For evaluation of new models, first download the videos based on the video_id from Youtube. Then run inference and save the results in the following format:
+For evaluation of new models, first download the videos based on the ids in "video_id.txt" from Youtube (e.g., [yt-dlp
+](https://github.com/yt-dlp/yt-dlp)). Then run inference and save the results in the following format:
 ```
 [
     {
