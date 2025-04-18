@@ -8,13 +8,13 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [04/21/2025] 🔥 The first release of Vidi consists of tech report and the VUE-TR evaluation benchmark. The 7B model demo and weights are coming soon. 
 
 ## Content
-<!-- - [Installation](#installation) -->
+- [Installation](#installation)
 - [Evaluation](#evaluation)
 - [ ] Demo
 - [ ] Vidi-7B Wight
 
-<!-- ## Installation
-Run the [install.sh](install.sh). -->
+## Installation
+Run the [install.sh](install.sh).
 
 ## Evaluation
 
@@ -53,4 +53,4 @@ We release the 7B model weight for reproduction of results. For a given video an
 
 ```
 python3 -u inference.py --video-path [video path] --query [query] --model-path [model path]
-```  --># vidi
+```  -->
