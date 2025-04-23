@@ -11,7 +11,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [Installation](#installation)
 - [Evaluation](#evaluation)
 - [ ] Demo
-- [ ] Vidi-7B Wight
+- [ ] Vidi-7B Weight
 
 ## Installation
 Run the [install.sh](install.sh).
