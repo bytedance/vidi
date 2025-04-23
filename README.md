@@ -1,4 +1,4 @@
-# [Vidi: Large Multimodal Models for Video Understanding and Editing](https://bytedance.github.io/vidi-website/)
+# [Vidi: Large Multimodal Models for Video Understanding and Editing](https://arxiv.org/pdf/2504.15681)
 
 Homepage: https://bytedance.github.io/vidi-website/
 
@@ -55,3 +55,20 @@ We release the 7B model weight for reproduction of results. For a given video an
 ```
 python3 -u inference.py --video-path [video path] --query [query] --model-path [model path]
 ```  -->
+
+## Citation
+If you find Vidi useful for your research and applications, please cite using this BibTeX:
+```
+@article{Vidi2025vidi,
+    title={Vidi: Large Multimodal Models for Video 
+            Understanding and Editing},
+    author={Vidi Team, Celong Liu, Chia-Wen Kuo, Dawei Du, 
+            Fan Chen, Guang Chen, Jiamin Yuan, Lingxi Zhang,
+            Lu Guo, Lusha Li, Longyin Wen, Qingyu Chen, 
+            Rachel Deng, Sijie Zhu, Stuart Siew, Tong Jin, 
+            Wei Lu, Wen Zhong, Xiaohui Shen, Xin Gu, Xing Mei, 
+            Xueqiong Qu},
+    journal={arXiv preprint arXiv:2504.15681},
+    year={2025}
+}
+```
