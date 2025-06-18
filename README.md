@@ -5,7 +5,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 > We introduce Vidi, a family of Large Multimodal Models (LMMs) for a wide range of video understanding and editing (VUE) scenarios. The first release focuses on temporal retrieval (TR), i.e., identifying the time ranges in input videos corresponding to a given text query. 
 
 ## Release
-- [06/06/2025] 🔥 Vidi-7B demo released at https://vidi.byteintl.com/.
+- [06/06/2025] 🔥 Vidi-7B demo released at https://vidi.byteintl.com/. Follow the instructions in the [demo](#demo) section to run the demo.
 - [04/21/2025] 🔥 The first release of Vidi consists of tech report and the VUE-TR evaluation benchmark. The 7B model demo and weights are coming soon. 
 
 ## Content
@@ -13,6 +13,17 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [Evaluation](#evaluation)
 - [Demo](https://vidi.byteintl.com/)
 - [ ] Vidi-7B Weight
+
+## Demo
+1. Click "Choose File" button and find a video local file (better in mp4 format). Click the "Upload" button. 
+
+    Video files could contain corrupted frames which causes errors for video loading, it is recommended to use the following command to transcode the video file before uploading if the demo raises an error:
+    ```
+    ffmpeg -i {vpath_in} -vf scale=480:-2 -c:v libx264 -c:a copy -preset ultrafast {vpath_out} -y
+    ```
+2. After the video is uploaded, wait till the video is ready to play in the "Input Video" box.
+3. Enter the text query in the "Input Query". Click the "Run Time Retrieval" button.
+4. Wait till the result clips show in the "Output Clips" box. This could take several minutes for long video.
 
 ## Installation
 Run the [install.sh](install.sh).
