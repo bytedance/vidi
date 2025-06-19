@@ -17,7 +17,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 ## Demo
 1. Click "Choose File" button and find a video local file (better in mp4 format). Click the "Upload" button. 
 
-    Video files could contain corrupted frames which causes errors for video loading, it is recommended to use the following command to transcode the video file before uploading if the demo raises an error:
+    (Optional) Video files could contain corrupted frames which causes errors for video loading, it is recommended to use the following command to transcode the video file before uploading if the demo raises an error:
     ```
     ffmpeg -i {vpath_in} -vf scale=480:-2 -c:v libx264 -c:a copy -preset ultrafast {vpath_out} -y
     ```
