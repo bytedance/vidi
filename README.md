@@ -13,7 +13,10 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [Installation](#installation)
 - [Evaluation](#evaluation)
 - [Demo](https://vidi.byteintl.com/)
-- [ ] Vidi-7B Weight
+- [ ] Vidi2 release, tech report and homepage update
+- [ ] New benchmarks release with evaluation code
+- [ ] Vidi-7B Weight and inference code
+- [ ] Demo update with new capability
 
 ## Demo
 1. Click "Choose File" button and find a video local file (better in mp4 format). Click the "Upload" button. 
