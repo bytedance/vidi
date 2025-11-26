@@ -277,9 +277,7 @@ def compute_precision_recall(results, avg=True):
     
     precision = []
     for i, g, p in zip(inter_all, gt_all, pred_all):
-        if g == 0 and p == 0:
-            precision.append(1.)
-        elif p != 0:
+        if p != 0:
             precision.append(i / p)
     precision = np.array(precision)
     # calculate average scores
