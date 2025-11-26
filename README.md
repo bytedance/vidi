@@ -1,4 +1,4 @@
-# [Vidi2: Large Multimodal Models for Video Understanding and Creation](https://arxiv.org/pdf/2504.15681)
+# [Vidi2: Large Multimodal Models for Video Understanding and Creation](https://arxiv.org/pdf/2511.19529)
 
 Homepage: https://bytedance.github.io/vidi-website/
 
