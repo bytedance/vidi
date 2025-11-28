@@ -94,7 +94,7 @@ You may find the instruction and data for the previous version (VUE-TR) [here](V
 ## Model and Inference
 We release the 7B model weight for reproduction of Vidi results in 2025/04/15 tech report. 
 
-First download the checkpoint from [https://huggingface.co/bytedance-research/Vidi-7B](https://huggingface.co/bytedance-research/Vidi-7B).
+First download the checkpoint from [Coming Very Soon](https://huggingface.co/bytedance-research/Vidi-7B).
 
 Then run [install.sh](Vidi_7B/install.sh) in "./Vidi_7B":
 ```
