@@ -5,13 +5,13 @@ Homepage: https://bytedance.github.io/vidi-website/
 > We introduce Vidi, a family of Large Multimodal Models (LMMs) for a wide range of video understanding and editing (VUE) scenarios. The first release focuses on temporal retrieval (TR), i.e., identifying the time ranges in input videos corresponding to a given text query. The second release evolves toward a foundation model with state-of-the-art spatio-temporal grounding (STG) and temporal retrieval capability while maintaining basic open-ended video QA performance.
 
 ## Release
-- [11/25/2025] 🔥 Vidi2 released at [Report](https://arxiv.org/pdf/2511.19529), [Github](https://github.com/bytedance/vidi), [Homepage](https://bytedance.github.io/vidi-website/), [Demo Coming Very Soon](https://vidi.byteintl.com/).
+- [11/25/2025] 🔥 Vidi2 released at [Report](https://arxiv.org/pdf/2511.19529), [Github](https://github.com/bytedance/vidi), [Homepage](https://bytedance.github.io/vidi-website/), [Demo](https://vidi.byteintl.com/).
 - [08/29/2025] 🔥 Vidi1.5-9B demo released at https://vidi.byteintl.com/ with new UI design.
 - [06/06/2025] 🔥 Vidi-7B demo released at https://vidi.byteintl.com/. Follow the instructions in the [demo](#demo) section to run the demo.
 - [04/21/2025] 🔥 The first release of Vidi consists of tech report and the VUE-TR evaluation benchmark. The 7B model demo and weights are coming soon. 
 
 ## Content
-- [Demo Coming Very Soon](https://vidi.byteintl.com/)
+- [Demo](https://vidi.byteintl.com/)
 - [Installation](#installation)
 - [Evaluation (VUE-STG)](#evaluation-vue-stg)
 - [Evaluation (VUE-TR-V2)](#evaluation-vue-tr-v2)
@@ -24,18 +24,22 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [ ] Demo update to latest checkpoint -->
 
 
-<!-- ## Demo
-1. Select a mode from ["Highlight", "Retrieval"]on the segmented button.
+## Demo
+1. Select a mode from ["Highlight", "VQA", "Retrieval", "Grounding"] on the segmented button.
 
 - "Highlight": No input query needed. Directly output a set of highlight clips with title.
 
+- "VQA": Input a question/instruction about the video. The model will answer the question.
+
 - "Retrieval": Input a text query to be searched. The model will find the clips corresponding to text query.
+
+- "Grounding": Input a text query indicating the object to be searched. The model will find the clips corresponding to text query with bounding boxes on the object.
 
 
 2. Click "Upload" button and select a video local file (mp4 format). Make sure the video is not corrupted, and the resolution is not too high. 480p is recommended for fast uploading and decoding.
 2. After the video is uploaded, wait till the uploading is finished and the video is ready to play in the box.
 3. Enter the text query if needed. Click the "Send" button.
-4. Wait till the result clips show in the chat box. This could take several minutes for long video. -->
+4. Wait till the result clips show in the chat box. This could take several minutes for long video.
 
 ## Installation
 Run the [install.sh](install.sh).
@@ -94,7 +98,7 @@ You may find the instruction and data for the previous version (VUE-TR) [here](V
 ## Model and Inference
 We release the 7B model weight for reproduction of Vidi results in 2025/04/15 tech report. 
 
-First download the checkpoint from [Coming Very Soon](https://huggingface.co/bytedance-research/Vidi-7B).
+First download the checkpoint from [https://huggingface.co/bytedance-research/Vidi-7B](https://huggingface.co/bytedance-research/Vidi-7B).
 
 Then run [install.sh](Vidi_7B/install.sh) in "./Vidi_7B":
 ```
