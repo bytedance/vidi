@@ -25,7 +25,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 
 
 ## Demo
-1. Select a mode from ["Highlight", "VQA", "Retrieval", "Grounding"] on the segmented button.
+1. Select a mode from ["Highlight", "VQA", "Retrieval", "Grounding"] on the segmented button. Please use English query for the best experience.
 
 - "Highlight": No input query needed. Directly output a set of highlight clips with title.
 
