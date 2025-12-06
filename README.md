@@ -29,11 +29,11 @@ Homepage: https://bytedance.github.io/vidi-website/
 
 - "Highlight": No input query needed. Directly output a set of highlight clips with title.
 
-- "VQA": Input a question/instruction about the video. The model will answer the question.
+- "Grounding": Input a text query indicating the object to be searched. The model will find the clips corresponding to text query with bounding boxes on the object.
 
 - "Retrieval": Input a text query to be searched. The model will find the clips corresponding to text query.
 
-- "Grounding": Input a text query indicating the object to be searched. The model will find the clips corresponding to text query with bounding boxes on the object.
+- "VQA": Input a question/instruction about the video. The model will answer the question.
 
 
 2. Click "Upload" button and select a video local file (mp4 format). Make sure the video is not corrupted, and the resolution is not too high. 480p is recommended for fast uploading and decoding.
