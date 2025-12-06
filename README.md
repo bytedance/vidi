@@ -16,12 +16,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [Evaluation (VUE-STG)](#evaluation-vue-stg)
 - [Evaluation (VUE-TR-V2)](#evaluation-vue-tr-v2)
 - [Model](#model-and-inference)
-
-<!-- - [ ] Vidi2 release, tech report and homepage update
-- [ ] New benchmarks release with evaluation code
-- [ ] Vidi-7B Weight and inference code
-- [ ] Demo update with new capability
-- [ ] Demo update to latest checkpoint -->
+- [ ] Vidi1.5-9B Weight and inference code
 
 
 ## Demo
