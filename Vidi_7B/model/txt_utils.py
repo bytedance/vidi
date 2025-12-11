@@ -120,187 +120,15 @@ def targets_mistral(
     return targets
 
 
-def chat_template_llama3(
-    source: List[Dict[str, str]],
-    tokenizer: transformers.PreTrainedTokenizer,
-    roles_chat: Tuple[str] = ("user", "assistant"),
-    roles_data: Tuple[str] = ("human", "gpt"),
-    generation: bool = False
-) -> str:
-    conversation = chat_template(source, tokenizer, roles_chat, roles_data)
-    if generation:
-        conversation += "<|start_header_id|>assistant<|end_header_id|>\n\n"
-
-    return conversation
-
-
-def targets_llama3(
-    conversation: str,
-    input_ids: torch.Tensor,
-    tokenizer: transformers.PreTrainedTokenizer,
-    has_image: bool = False
-) -> torch.Tensor:
-    
-    targets = input_ids.clone()
-    cur_len = 1  # bos token
-    targets[:cur_len] = IGNORE_INDEX
-
-    sep_round = f"<|start_header_id|>user<|end_header_id|>\n\n"
-    sep_part = f"<|start_header_id|>assistant<|end_header_id|>\n\n"
-    
-    for rou in conversation.split(sep_round):
-        parts = rou.split(sep_part)
-        if len(parts) == 1:  # system prompt
-            round_len = len(tokenizer_image_token(rou, tokenizer)) - 1
-            targets[cur_len : cur_len+round_len] = IGNORE_INDEX
-        elif len(parts) == 2:  # conversation body
-            if has_image:
-                round_len = len(tokenizer_image_token(rou, tokenizer)) + 3
-                instruction_len = len(tokenizer_image_token(parts[0], tokenizer)) + 7
-            else:
-                round_len = len(tokenizer(rou).input_ids) + 3
-                instruction_len = len(tokenizer(parts[0]).input_ids) + 7
-            targets[cur_len : cur_len+instruction_len] = IGNORE_INDEX
-        else:
-            raise ValueError(f"Number of parts: [{len(parts)}] {parts}")
-
-        cur_len += round_len
-
-    if cur_len < tokenizer.model_max_length and cur_len != len(targets):
-        targets[:] = IGNORE_INDEX
-        print(f"WARNING: tokenization mismatch: {cur_len} vs. {len(targets)}. (ignored)")
-    
-    return targets
-
-
-def chat_template_gemma2(
-    source: List[Dict[str, str]],
-    tokenizer: transformers.PreTrainedTokenizer,
-    roles_chat: Tuple[str] = ("user", "model"),
-    roles_data: Tuple[str] = ("human", "gpt"),
-    generation: bool = False
-) -> str:
-    conversation = chat_template(source, tokenizer, roles_chat, roles_data)
-    if generation:
-        conversation += "<start_of_turn>model\n"
-
-    return conversation
-
-
-def targets_gemma2(
-    conversation: str,
-    input_ids: torch.Tensor,
-    tokenizer: transformers.PreTrainedTokenizer,
-    has_image: bool = False
-) -> torch.Tensor:
-
-    targets = input_ids.clone()
-    cur_len = 1  # bos token
-    targets[:cur_len] = IGNORE_INDEX
-
-    sep_round = f"<start_of_turn>user\n"
-    sep_part = f"<start_of_turn>model\n"
-    
-    for rou in conversation.split(sep_round):
-        if rou == "": continue
-
-        parts = rou.split(sep_part)
-        assert len(parts) == 2
-
-        if has_image:
-            round_len = len(tokenizer_image_token(rou, tokenizer)) + 2
-            instruction_len = len(tokenizer_image_token(parts[0], tokenizer)) + 5
-        else:
-            round_len = len(tokenizer(rou).input_ids) + 2
-            instruction_len = len(tokenizer(parts[0]).input_ids) + 5
-
-        targets[cur_len-1 : cur_len+instruction_len] = IGNORE_INDEX
-
-        cur_len += round_len
-
-    if cur_len < tokenizer.model_max_length and cur_len != len(targets):
-        targets[:] = IGNORE_INDEX
-        print(f"WARNING: tokenization mismatch: {cur_len} vs. {len(targets)}. (ignored)")
-    
-    return targets
-
-
-def chat_template_qwen2(
-    source: List[Dict[str, str]],
-    tokenizer: transformers.PreTrainedTokenizer,
-    roles_chat: Tuple[str] = ("user", "assistant"),
-    roles_data: Tuple[str] = ("human", "gpt"),
-    generation: bool = False
-) -> str:
-    conversation = chat_template(source, tokenizer, roles_chat, roles_data)
-    if generation:
-        conversation += "<|im_start|>assistant\n"
-
-    return conversation
-
-
-def targets_qwen2(
-    conversation: str,
-    input_ids: torch.Tensor,
-    tokenizer: transformers.PreTrainedTokenizer,
-    has_image: bool = False
-) -> torch.Tensor:
-
-    targets = input_ids.clone()
-    cur_len = 0
-
-    sep_round = f"<|im_start|>user\n"
-    sep_part = f"<|im_start|>assistant\n"
-    
-    for rou in conversation.split(sep_round):
-        parts = rou.split(sep_part)
-        if len(parts) == 1:  # system prompt
-            round_len = len(tokenizer_image_token(rou, tokenizer))
-            targets[cur_len : cur_len+round_len] = IGNORE_INDEX
-        elif len(parts) == 2:  # conversation body
-            if has_image:
-                round_len = len(tokenizer_image_token(rou, tokenizer)) + 3
-                instruction_len = len(tokenizer_image_token(parts[0], tokenizer)) + 6
-            else:
-                round_len = len(tokenizer(rou).input_ids) + 3
-                instruction_len = len(tokenizer(parts[0]).input_ids) + 6
-            targets[cur_len : cur_len+instruction_len] = IGNORE_INDEX
-        else:
-            raise ValueError(f"Number of parts: [{len(parts)}] {parts}")
-
-        cur_len += round_len
-
-    if cur_len < tokenizer.model_max_length and cur_len != len(targets):
-        targets[:] = IGNORE_INDEX
-        print(f"WARNING: tokenization mismatch: {cur_len} vs. {len(targets)}. (ignored)")
-    
-    return targets
-
 
 def preprocess_conv(
     source: Sequence[str],
     tokenizer: transformers.PreTrainedTokenizer,
     has_image: bool = False
 ) -> Dict:
-    if "mistral" in tokenizer.name_or_path.lower():
-        conversation = chat_template_mistral(source, tokenizer)
-        input_ids = tokenize(conversation, tokenizer, has_image)
-        targets = targets_mistral(conversation, input_ids, tokenizer, has_image)
-    elif "llama" in tokenizer.name_or_path.lower():
-        conversation = chat_template_llama3(source, tokenizer)
-        input_ids = tokenize(conversation, tokenizer, has_image)
-        targets = targets_llama3(conversation, input_ids, tokenizer, has_image)
-    elif "gemma" in tokenizer.name_or_path.lower():
-        conversation = chat_template_gemma2(source, tokenizer)
-        input_ids = tokenize(conversation, tokenizer, has_image)
-        targets = targets_gemma2(conversation, input_ids, tokenizer, has_image)
-    elif "qwen" in tokenizer.name_or_path.lower():
-        conversation = chat_template_qwen2(source, tokenizer)
-        input_ids = tokenize(conversation, tokenizer, has_image)
-        targets = targets_qwen2(conversation, input_ids, tokenizer, has_image)
-    else:
-        raise KeyError("Preprocess method not supported")
-    
+    conversation = chat_template_mistral(source, tokenizer)
+    input_ids = tokenize(conversation, tokenizer, has_image)
+    targets = targets_mistral(conversation, input_ids, tokenizer, has_image) 
     return dict(input_ids=input_ids, labels=targets)
 
 
@@ -308,15 +136,5 @@ def preprocess_chat(
     source: Sequence[str],
     tokenizer: transformers.PreTrainedTokenizer
 ) -> str:
-    if "mistral" in tokenizer.name_or_path.lower():
-        conversation = chat_template_mistral(source, tokenizer)
-    elif "llama" in tokenizer.name_or_path.lower():
-        conversation = chat_template_llama3(source, tokenizer, generation=True)
-    elif "gemma" in tokenizer.name_or_path.lower():
-        conversation = chat_template_gemma2(source, tokenizer, generation=True)
-    elif "qwen" in tokenizer.name_or_path.lower():
-        conversation = chat_template_qwen2(source, tokenizer, generation=True)
-    else:
-        raise KeyError("Preprocess method not supported")
-    
+    conversation = chat_template_mistral(source, tokenizer)    
     return conversation

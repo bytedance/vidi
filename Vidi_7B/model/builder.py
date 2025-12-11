@@ -47,13 +47,7 @@ def load_pretrained_model(model_name_or_path, load_8bit=False, load_4bit=False, 
     num_try, max_try = 0, 5
     while True:
         try:
-            if "dattn" in model_name_or_path.lower():
-                LMM_CLS = get_dattn_cls(model_name_or_path)
-            elif "sattn" in model_name_or_path.lower():
-                LMM_CLS = get_sattn_cls(model_name_or_path)
-            else:
-                raise NotImplementedError(f"Unsupported attention type: {model_name_or_path}")
-            
+            LMM_CLS = get_dattn_cls(model_name_or_path)       
             model = LMM_CLS.from_pretrained(
                 model_name_or_path, low_cpu_mem_usage=True, **kwargs
             )
