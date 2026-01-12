@@ -17,6 +17,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 - [Evaluation (VUE-TR-V2)](#evaluation-vue-tr-v2)
 - [Model](#model-and-inference)
 - [ ] Vidi1.5-9B Weight and inference code
+- [ ] Vidi1.5-9B Sample finetune code
 
 
 ## Demo
