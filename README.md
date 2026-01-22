@@ -106,20 +106,20 @@ You may find the instruction and data for the previous version (VUE-TR) [here](V
 ## Citation
 If you find Vidi useful for your research and applications, please cite using this BibTeX:
 ```
-@article{Vidi2025vidi2.5,
-          title={Vidi2.5: Large Multimodal Models for Video 
-                  Understanding and Creation},
-          author={Vidi Team, Chia-Wen Kuo, Chuang Huang, Dawei Du, 
-                  Fan Chen, Fanding Lei, Feng Gao, Guang Chen, 
-                  Haoji Zhang, Haojun Zhao, Jin Liu, Jingjing Zhuge,
-                  Lili Fang, Lingxi Zhang, Longyin Wen, Lu Guo,
-                  Lu Xu, Lusha Li, Qihang Fan, Rachel Deng, 
-                  Shaobo Fang, Shu Zhang, Sijie Zhu, Stuart Siew, 
-                  Weiyan Tao, Wen Zhong, Xiaohui Shen, Xin Gu, 
-                  Ye Yuan, Yicheng He, Yiming Cui, Zhenfang Chen,
-                  Zhihua Wu, Zuhua Lin},
-          journal={arXiv preprint arXiv:2511.19529},
-          year={2026}
+@article{Vidi2026vidi2.5,
+    title={Vidi2.5: Large Multimodal Models for Video 
+            Understanding and Creation},
+    author={Vidi Team, Chia-Wen Kuo, Chuang Huang, Dawei Du, 
+            Fan Chen, Fanding Lei, Feng Gao, Guang Chen, 
+            Haoji Zhang, Haojun Zhao, Jin Liu, Jingjing Zhuge,
+            Lili Fang, Lingxi Zhang, Longyin Wen, Lu Guo,
+            Lu Xu, Lusha Li, Qihang Fan, Rachel Deng, 
+            Shaobo Fang, Shu Zhang, Sijie Zhu, Stuart Siew, 
+            Weiyan Tao, Wen Zhong, Xiaohui Shen, Xin Gu, 
+            Ye Yuan, Yicheng He, Yiming Cui, Zhenfang Chen,
+            Zhihua Wu, Zuhua Lin},
+    journal={arXiv preprint arXiv:2511.19529},
+    year={2026}
 }
 @article{Vidi2025vidi,
     title={Vidi: Large Multimodal Models for Video 
