@@ -4,6 +4,7 @@ We release the ground-truth annotation and evaluation results in 5 json files. R
 
 ```
 cd VUE_TR
+bash install.sh
 python3 -u qa_eval.py --pred_path results_Vidi.json
 ```
 The result figures will be saved in the output folder ('./results' by default)

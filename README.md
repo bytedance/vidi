@@ -1,10 +1,11 @@
-# [Vidi2: Large Multimodal Models for Video Understanding and Creation](https://arxiv.org/pdf/2511.19529)
+# [Vidi2.5: Large Multimodal Models for Video Understanding and Creation](https://arxiv.org/pdf/2511.19529)
 
 Homepage: https://bytedance.github.io/vidi-website/
 
-> We introduce Vidi, a family of Large Multimodal Models (LMMs) for a wide range of video understanding and editing (VUE) scenarios. The first release focuses on temporal retrieval (TR), i.e., identifying the time ranges in input videos corresponding to a given text query. The second release evolves toward a foundation model with state-of-the-art spatio-temporal grounding (STG) and temporal retrieval capability while maintaining basic open-ended video QA performance.
+> We introduce Vidi, a family of Large Multimodal Models (LMMs) for a wide range of video understanding and editing (VUE) scenarios. The first release focuses on temporal retrieval (TR), i.e., identifying the time ranges in input videos corresponding to a given text query. The second release evolves toward a foundation model with state-of-the-art spatio-temporal grounding (STG) and temporal retrieval capability while maintaining basic open-ended video QA performance. 
 
 ## Release
+- [01/20/2026] 🔥 Vidi2.5 released with updated report, github, and demo. VUE_PLOT benchmark and Vidi1.5-9B weight with finetune code are included.
 - [11/25/2025] 🔥 Vidi2 released at [Report](https://arxiv.org/pdf/2511.19529), [Github](https://github.com/bytedance/vidi), [Homepage](https://bytedance.github.io/vidi-website/), [Demo](https://vidi.byteintl.com/).
 - [08/29/2025] 🔥 Vidi1.5-9B demo released at https://vidi.byteintl.com/ with new UI design.
 - [06/06/2025] 🔥 Vidi-7B demo released at https://vidi.byteintl.com/. Follow the instructions in the [demo](#demo) section to run the demo.
@@ -12,22 +13,22 @@ Homepage: https://bytedance.github.io/vidi-website/
 
 ## Content
 - [Demo](https://vidi.byteintl.com/)
-- [Installation](#installation)
+- [Evaluation (VUE-PLOT)](#evaluation-vue-plot)
 - [Evaluation (VUE-STG)](#evaluation-vue-stg)
 - [Evaluation (VUE-TR-V2)](#evaluation-vue-tr-v2)
-- [Model](#model-and-inference)
-- [ ] Vidi1.5-9B Weight and inference code
-- [ ] Vidi1.5-9B Sample finetune code
+- [Model Inference and Finetune](#model-inference-and-finetune)
 
 
 ## Demo
-1. Select a mode from ["Highlight", "VQA", "Retrieval", "Grounding"] on the segmented button. Please use English query for the best experience.
-
-- "Highlight": No input query needed. Directly output a set of highlight clips with title.
+Will be updated very soon at [https://vidi.byteintl.com/](https://vidi.byteintl.com/).
+<!-- Grounding, Retrieval, Character, Chapter, Highlight, VQA, Thinking -->
+1. Select a mode from ["Retrieval", "Grounding", "Highlight", "VQA"] on the segmented button. Please use English query for the best experience.
 
 - "Grounding": Input a text query indicating the object to be searched. The model will find the clips corresponding to text query with bounding boxes on the object.
 
 - "Retrieval": Input a text query to be searched. The model will find the clips corresponding to text query.
+
+- "Highlight": No input query needed. Directly output a set of highlight clips with title.
 
 - "VQA": Input a question/instruction about the video. The model will answer the question.
 
@@ -37,9 +38,12 @@ Homepage: https://bytedance.github.io/vidi-website/
 3. Enter the text query if needed. Click the "Send" button.
 4. Wait till the result clips show in the chat box. This could take several minutes for long video.
 
-## Installation
-Run the [install.sh](install.sh).
 
+## Evaluation (VUE-PLOT)
+We release the VUE-PLOT benchmark for plot understanding with two tracks, including charater and reasoning. Follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to conduct evaluation.
+To evaluate your own model:
+1. You can obtain the raw videos either using the YouTube video IDs or, alternatively, by downloading them from the [Condensed Movies dataset](https://www.robots.ox.ac.uk/~vgg/data/condensed-movies/) homepage.
+2. Generate the results of your own model and follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to finish the evaluation.
 
 
 ## Evaluation (VUE-STG)
@@ -60,6 +64,7 @@ To evaluate your own model:
 We release the ground-truth annotation and evaluation results in 5 json files. Run the script for a standalone evaluation:
 ```
 cd VUE_TR_V2
+bash install.sh
 python3 -u qa_eval.py --pred_path results_Vidi.json
 ```
 The result figures will be saved in the output folder ('./results' by default)
@@ -91,37 +96,30 @@ For evaluation of new models, first download the videos based on the ids in [VUE
 You may find the instruction and data for the previous version (VUE-TR) [here](VUE_TR/README.md).
 
 
-## Model and Inference
-We release the 7B model weight for reproduction of Vidi results in 2025/04/15 tech report. 
+## Model Inference and Finetune
 
-First download the checkpoint from [https://huggingface.co/bytedance-research/Vidi-7B](https://huggingface.co/bytedance-research/Vidi-7B).
+- To conduct inference and finetuning for [Vidi1.5-9B](https://huggingface.co/bytedance-research/Vidi1.5-9B), follow the instructions in [Vidi1.5_9B/README.md](Vidi_7B/README.md). 
 
-Then run [install.sh](Vidi_7B/install.sh) in "./Vidi_7B":
-```
-cd Vidi_7B
-bash install.sh
-```
+- To conduct inference for [Vidi-7B](https://huggingface.co/bytedance-research/Vidi-7B), follow the instructions in [Vidi_7B/README.md](Vidi_7B/README.md).
 
-For a given video (e.g., [example_video](https://drive.google.com/file/d/1PZXUmTwUivFV_0nRhAnVR4LO9N9AAA1e/view?usp=sharing)) and text query (e.g., slicing onion), run the following command to get the results:
-
-```
-python3 -u inference.py --video-path [video path] --query [query] --model-path [model path]
-``` 
 
 ## Citation
 If you find Vidi useful for your research and applications, please cite using this BibTeX:
 ```
-@article{Vidi2025vidi2,
-    title={Vidi2: Large Multimodal Models for Video 
-            Understanding and Creation},
-    author={Vidi Team, Celong Liu, Chia-Wen Kuo, Chuang Huang, 
-            Dawei Du, Fan Chen, Guang Chen, Haoji Zhang, 
-            Haojun Zhao, Lingxi Zhang, Lu Guo, Lusha Li, 
-            Longyin Wen, Qihang Fan, Qingyu Chen, Rachel Deng,
-            Sijie Zhu, Stuart Siew, Tong Jin, Weiyan Tao,
-            Wen Zhong, Xiaohui Shen, Xin Gu, Zhenfang Chen, Zuhua Lin},
-    journal={arXiv preprint arXiv:2511.19529},
-    year={2025}
+@article{Vidi2025vidi2.5,
+          title={Vidi2.5: Large Multimodal Models for Video 
+                  Understanding and Creation},
+          author={Vidi Team, Chia-Wen Kuo, Chuang Huang, Dawei Du, 
+                  Fan Chen, Fanding Lei, Feng Gao, Guang Chen, 
+                  Haoji Zhang, Haojun Zhao, Jin Liu, Jingjing Zhuge,
+                  Lili Fang, Lingxi Zhang, Longyin Wen, Lu Guo,
+                  Lu Xu, Lusha Li, Qihang Fan, Rachel Deng, 
+                  Shaobo Fang, Shu Zhang, Sijie Zhu, Stuart Siew, 
+                  Weiyan Tao, Wen Zhong, Xiaohui Shen, Xin Gu, 
+                  Ye Yuan, Yicheng He, Yiming Cui, Zhenfang Chen,
+                  Zhihua Wu, Zuhua Lin},
+          journal={arXiv preprint arXiv:2511.19529},
+          year={2026}
 }
 @article{Vidi2025vidi,
     title={Vidi: Large Multimodal Models for Video 

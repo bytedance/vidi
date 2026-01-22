@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 python3 -u vidi/eval/inference.py --video-path "Your Video Path" --query "Your Query" --model-path "Your Model Path"

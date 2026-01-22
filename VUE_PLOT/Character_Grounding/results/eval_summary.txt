@@ -1,0 +1,12 @@
+Evaluation Summary:
+===================
+temporal_iou_avg: 0.7163
+average_box_iou: 0.5589
+word_error_rate: 0.2320
+overall_word_accuracy: 0.6978
+overall_word_error: 0.3022
+total_gt_segments: 13262.0000
+total_pred_segments: 16966.0000
+matched_segments: 7985.0000
+
+Total Questions: 535
