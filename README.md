@@ -40,7 +40,7 @@ Will be updated very soon at [https://vidi.byteintl.com/](https://vidi.byteintl.
 
 
 ## Evaluation (VUE-PLOT)
-We release the VUE-PLOT benchmark for plot understanding with two tracks, including charater and reasoning. Follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to conduct evaluation.
+We release the VUE-PLOT benchmark for plot understanding with two tracks, including character and reasoning. Follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to conduct evaluation.
 To evaluate your own model:
 1. You can obtain the raw videos either using the YouTube video IDs or, alternatively, by downloading them from the [Condensed Movies dataset](https://www.robots.ox.ac.uk/~vgg/data/condensed-movies/) homepage.
 2. Generate the results of your own model and follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to finish the evaluation.
