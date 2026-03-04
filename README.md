@@ -20,24 +20,32 @@ Homepage: https://bytedance.github.io/vidi-website/
 
 
 ## Demo
-Will be updated very soon at [https://vidi.byteintl.com/](https://vidi.byteintl.com/).
+The demo has two pages, including vidi base page, and vidi-edit page.
+### Vidi
+The demo has been updated at [https://vidi.byteintl.com/](https://vidi.byteintl.com/). 
 <!-- Grounding, Retrieval, Character, Chapter, Highlight, VQA, Thinking -->
-1. Select a mode from ["Retrieval", "Grounding", "Highlight", "VQA"] on the segmented button. Please use English query for the best experience.
+1. Select a mode from ["Grounding", "Retrieval", "Chapter", "Highlight", "VQA", "Thinking"] on the segmented button. Please use English query for the best experience.
 
 - "Grounding": Input a text query indicating the object to be searched. The model will find the clips corresponding to text query with bounding boxes on the object.
 
 - "Retrieval": Input a text query to be searched. The model will find the clips corresponding to text query.
 
+- "Chapter": No input query needed. Directly output a set of chapters with title.
+
 - "Highlight": No input query needed. Directly output a set of highlight clips with title.
 
 - "VQA": Input a question/instruction about the video. The model will answer the question.
 
+- "Thinking": Input a question/instruction about the video. The model will think and answer the question.
 
 2. Click "Upload" button and select a video local file (mp4 format). Make sure the video is not corrupted, and the resolution is not too high. 480p is recommended for fast uploading and decoding.
 2. After the video is uploaded, wait till the uploading is finished and the video is ready to play in the box.
 3. Enter the text query if needed. Click the "Send" button.
 4. Wait till the result clips show in the chat box. This could take several minutes for long video.
 
+### Vidi-Edit
+
+Select the "Edit" page. Upload multiple videos and click generate button. It will automatically output an edited video with storyline, music, effect, etc.
 
 
 ## Evaluation (VUE-STG)
