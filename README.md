@@ -20,9 +20,9 @@ Homepage: https://bytedance.github.io/vidi-website/
 
 
 ## Demo
-The demo has two pages, including vidi base page, and vidi-edit page.
+The demo has been updated at [https://vidi.byteintl.com/](https://vidi.byteintl.com/). The demo has two pages, including vidi base page, and vidi-edit page.
 ### Vidi
-The demo has been updated at [https://vidi.byteintl.com/](https://vidi.byteintl.com/). 
+
 <!-- Grounding, Retrieval, Character, Chapter, Highlight, VQA, Thinking -->
 1. Select a mode from ["Grounding", "Retrieval", "Chapter", "Highlight", "VQA", "Thinking"] on the segmented button. Please use English query for the best experience.
 
