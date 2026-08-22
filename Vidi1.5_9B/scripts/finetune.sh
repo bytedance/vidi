@@ -11,7 +11,7 @@ let GA=16*$SP/$BS/$WORKER_NUM
  
 export DECORD_EOF_RETRY_MAX=20480 
 
-deepspeed --master_port ${YourPort} vidi/train/train.py \
+deepspeed --master_port 29500 vidi/train/train.py \
     --deepspeed ./scripts/zero3.json \
     --model_name_or_path "Your Model Path" \
     --llm_attn "dattn" \
@@ -35,7 +35,7 @@ deepspeed --master_port ${YourPort} vidi/train/train.py \
     --num_train_epochs 1 \
     --per_device_train_batch_size $BS \
     --gradient_accumulation_steps $GA \
-    --eval_strateg "no" \
+    --eval_strategy "no" \
     --save_strategy "steps" \
     --save_steps 1000 \
     --save_total_limit 2 \
