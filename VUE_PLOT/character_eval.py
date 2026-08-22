@@ -1,6 +1,5 @@
 import argparse
 from collections import namedtuple
-import copy
 import jiwer
 import json
 import os
@@ -10,6 +9,8 @@ import subprocess
 import csv
 from moviepy.config import FFMPEG_BINARY
 
+from character_data import load_character_evaluation_examples
+
 Segment = namedtuple('Segment', ['start', 'end', 'text', 'boxes'])
 def parse_args():
     """
@@ -17,7 +18,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser()
     # Define the command-line arguments
-    parser.add_argument('--input_file', help='Input result jsonl file.', default="")
+    parser.add_argument('--input_file', help='Input prediction JSON file.', default="")
     # args.visualize
     parser.add_argument('--visualize', help='Visualize the bounding boxes and subtitles.', action='store_true')
     # args.video_dir
@@ -251,13 +252,33 @@ def extract_answer(text):
         return match.group(1).strip()
     return text[0]
 
+
+def normalize_segments(segments):
+    for item in segments:
+        item['start'] = float(item['start'])
+        item['end'] = float(item['end'])
+        for box in item.get('boxes', []):
+            box['timestamp'] = float(box['timestamp'])
+            coordinates = box['box_2d']
+            if isinstance(coordinates, str):
+                coordinates = [
+                    value
+                    for value in re.split(r'[\s,]+', coordinates.strip('[]() '))
+                    if value
+                ]
+            coordinates = [float(coordinate) for coordinate in coordinates]
+            if len(coordinates) != 4:
+                raise ValueError('box_2d must contain exactly four coordinates')
+            if any(coordinate > 1.0 for coordinate in coordinates):
+                coordinates = [coordinate / 1000 for coordinate in coordinates]
+            box['box_2d'] = coordinates
+
+    return segments
+
 def parse_result(args):
-   
-    with open(args.input_file) as file:
-        results = json.loads(file.read())
-    gt_questions = copy.deepcopy(results)
-    ques2pred = {ele['query_id'] : ele for ele in results}
+    evaluation_examples = load_character_evaluation_examples(args.input_file)
     all_results = []
+    output_dir = os.path.join(os.path.dirname(args.input_file), "results")
 
     total_metrics = {
         "temporal_iou_avg": 0,
@@ -271,41 +292,20 @@ def parse_result(args):
     }
     
     
-    num_pred = 0.0
-    for ques in gt_questions:
-        
-        if ques['query_id'] not in ques2pred:
-            continue
-        pred = ques2pred[ques['query_id']]
-
-        num_pred += 1
+    num_pred = 0
+    for ques, pred in evaluation_examples:
+        if pred is not None:
+            num_pred += 1
         # Define a structured format for each transcript segment for easier access.
-        
-        gt_json = pred['gt']
-        pred_json = pred['pred']
-        duration = pred['duration']
-        
-        for item in gt_json:
-            item['start'] = float(item['start'])
-            item['end'] = float(item['end'])
-            for box in item['boxes']:
-                box['timestamp']= float(box['timestamp'])
-                # Check if any coordinate is > 1 to trigger normalization, not just the first one (which could be 0)
-                if any(c > 1.0 for c in box['box_2d']):
-                    box['box_2d'] = [float(coord / 1000) for coord in box['box_2d']]
+
+        gt_json = normalize_segments(ques['gt'])
+        pred_json = normalize_segments(pred.get('pred', []) if pred is not None else [])
+        duration = ques['duration']
         
         # Segment creation
         gt_segments = [Segment(start=item['start'], end=item['end'], text=item.get('text', ''), boxes=item.get('boxes', [])) for item in gt_json]
         
         
-        for item in pred_json:
-            item['start'] = float(item['start'])
-            item['end'] = float(item['end'])
-            for box in item['boxes']:
-                box['timestamp']= float(box['timestamp'])
-                # Check if any coordinate is > 1
-                if any(c > 1.0 for c in box['box_2d']):
-                    box['box_2d'] = [float(coord / 1000) for coord in box['box_2d']]
         # Segment creation
         pred_segments  = [Segment(start=item['start'], end=item['end'], text=item.get('text', ''), boxes=item.get('boxes', [])) for item in pred_json]
 
@@ -323,7 +323,6 @@ def parse_result(args):
             "evaluation": comparison_results
         })
         # Save detailed results to a JSON file
-        output_dir = os.path.join(os.path.dirname(args.input_file),"results")
         if args.visualize and args.video_dir:
             video_path = os.path.join(args.video_dir, "2017", f"{ques['video_id']}.mkv")
             visualize_folder = os.path.basename(args.input_file).split(".")[0]
@@ -337,12 +336,11 @@ def parse_result(args):
                     print(f"Video file not found: {video_path}")
         
     # Calculate average metrics
-    num_questions = len(gt_questions)
+    num_questions = len(evaluation_examples)
     if num_questions > 0:
         for key in total_metrics:
             if "total" not in key and "matched" not in key:
-                #total_metrics[key] /= num_questions
-                total_metrics[key] /= num_pred
+                total_metrics[key] /= num_questions
     
     os.makedirs(output_dir, exist_ok=True)
     output_filename = os.path.join(output_dir, "eval_results.json")
@@ -362,9 +360,9 @@ def parse_result(args):
     print(f"Summary saved to {summary_filename}")
     print("\nAggregated Metrics:")
     print(json.dumps(total_metrics, indent=4))
-    print("Gt Questions:", len(gt_questions))
-    print("Pred Questions:", len(ques2pred))
-    print("Actual Pred Questions:", num_pred)
+    print("Ground Truth Questions:", num_questions)
+    print("Submitted Predictions:", num_pred)
+    print("Missing Predictions:", num_questions - num_pred)
 
 
 

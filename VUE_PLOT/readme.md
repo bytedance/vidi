@@ -28,7 +28,12 @@ python character_eval.py --input_file /path/to/your/results.json
 ```
 
 **Input Format:**
-The input should be a JSON file where each line contains the prediction results for a video query.
+The input should be a JSON array with one prediction object per video query. Each
+object must contain a canonical `video_id` and a `pred` list in the same segment
+format used by the bundled result files. The evaluator loads ground truth from
+`Character_Grounding/VUE-PLOT_Character_ground_truth.json`; submitted `gt` and
+`query_id` values are not used for scoring. Missing canonical videos are scored
+as empty predictions, while duplicate or unknown `video_id` values are rejected.
 
 **Metrics:**
 - **Temporal IoU**: Average Intersection over Union of matched time segments.
@@ -69,7 +74,7 @@ The input should be a JSON file containing a list of objects with `pred_answer`,
 |-------|--------------|---------|-----|
 | Gemini-3-Pro-Preview | 0.6833 | 0.1324 | 0.2900 |
 | Qwen3-Omni | 0.5068 | 0.0680 | 0.5812 |
-| Vidi2.5 | 0.7163 | 0.5589 | 0.2320 |
+| Vidi2.5 | 0.7019 | 0.5476 | 0.2475 |
 
 ### 2. Reasoning Track (VQA)
 
