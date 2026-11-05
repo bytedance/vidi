@@ -1,0 +1,2 @@
+# Unified-diff context lines may consist of a single space.
+scripts/patches/*.patch -whitespace

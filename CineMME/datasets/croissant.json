@@ -1,0 +1,413 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "sc": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@type": "sc:Dataset",
+  "name": "CineMME",
+  "description": "CineMME is a movie-scene benchmark for evaluating coupled cinematic grounding and reasoning. It contains a grounding track with timestamped speech transcripts and active-speaker face boxes, and a reasoning track with multiple-choice and open-ended cinematic questions.",
+  "url": "https://github.com/bytedance/vidi/tree/main/CineMME",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "datePublished": "2026-05-06",
+  "version": "1.1.0",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "keywords": [
+    "video understanding",
+    "multimodal evaluation",
+    "movie benchmark",
+    "speech grounding",
+    "speaker grounding",
+    "cinematic reasoning"
+  ],
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Jin Liu"
+    },
+    {
+      "@type": "Person",
+      "name": "Dawei Du"
+    },
+    {
+      "@type": "Person",
+      "name": "Yexiang Liu"
+    },
+    {
+      "@type": "Person",
+      "name": "Sijie Zhu"
+    },
+    {
+      "@type": "Person",
+      "name": "Fan Chen"
+    },
+    {
+      "@type": "Person",
+      "name": "Junxian Duan"
+    },
+    {
+      "@type": "Person",
+      "name": "Huaibo Huang"
+    },
+    {
+      "@type": "Person",
+      "name": "Ran He"
+    },
+    {
+      "@type": "Person",
+      "name": "Longyin Wen"
+    },
+    {
+      "@type": "Person",
+      "name": "Zhenfang Chen"
+    }
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "cinemme_grounding_json",
+      "name": "cinemme_grounding.json",
+      "contentUrl": "datasets/cinemme_grounding.json",
+      "encodingFormat": "application/json",
+      "sha256": "0df77eb65acdcae7d208c35ebb3a47ef7d28556e508b6885f4d6324eac6d0c61"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "cinemme_reasoning_mcq_json",
+      "name": "cinemme_reasoning_mcq.json",
+      "contentUrl": "datasets/cinemme_reasoning_mcq.json",
+      "encodingFormat": "application/json",
+      "sha256": "92db591b99ce585a9bbf7fce406efe94af3d769739ec9192a5d158a2ebeef5af"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "cinemme_reasoning_oeq_json",
+      "name": "cinemme_reasoning_oeq.json",
+      "contentUrl": "datasets/cinemme_reasoning_oeq.json",
+      "encodingFormat": "application/json",
+      "sha256": "9faa7076fbdb332b232c8087cc1aeb901dab950201a6a7fb6fee3985c4b8a404"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "video_sources_json",
+      "name": "video_sources.json",
+      "contentUrl": "datasets/video_sources.json",
+      "encodingFormat": "application/json",
+      "sha256": "f102cb58c07233f16dfb598835f9584f1db96bbbef2f9a5500091681b9704f80"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "grounding_records",
+      "name": "CineMME-Grounding",
+      "description": "Video-level grounding annotations with speech segments, transcripts, timestamps, and normalized active-speaker face boxes.",
+      "data": {
+        "@id": "cinemme_grounding_json"
+      },
+      "field": [
+        {
+          "@type": "cr:Field",
+          "name": "sample_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_grounding_json"
+            },
+            "extract": "$.sample_id"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "video_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_grounding_json"
+            },
+            "extract": "$.video_id"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "youtube_url",
+          "dataType": "sc:URL",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_grounding_json"
+            },
+            "extract": "$.youtube_url"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "duration",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_grounding_json"
+            },
+            "extract": "$.duration"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "segments",
+          "dataType": "cr:JSON",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_grounding_json"
+            },
+            "extract": "$.segments"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "reasoning_mcq_records",
+      "name": "CineMME-Reasoning-MCQ",
+      "description": "Multiple-choice cinematic reasoning questions with options, gold answer letters, and categories.",
+      "data": {
+        "@id": "cinemme_reasoning_mcq_json"
+      },
+      "field": [
+        {
+          "@type": "cr:Field",
+          "name": "question_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.question_id"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "video_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.video_id"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "youtube_url",
+          "dataType": "sc:URL",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.youtube_url"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "question",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.question"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "options",
+          "dataType": "cr:JSON",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.options"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "answer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.answer"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "category",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.category"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "question_type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_mcq_json"
+            },
+            "extract": "$.question_type"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "reasoning_oeq_records",
+      "name": "CineMME-Reasoning-OEQ",
+      "description": "Open-ended cinematic reasoning questions with reference answers and reasoning traces.",
+      "data": {
+        "@id": "cinemme_reasoning_oeq_json"
+      },
+      "field": [
+        {
+          "@type": "cr:Field",
+          "name": "question_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.question_id"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "video_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.video_id"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "youtube_url",
+          "dataType": "sc:URL",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.youtube_url"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "question",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.question"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "reference_answer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.reference_answer"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "reasoning_trace",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.reasoning_trace"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "category",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.category"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "question_type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.question_type"
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "dense_caption",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cinemme_reasoning_oeq_json"
+            },
+            "extract": "$.dense_caption"
+          }
+        }
+      ]
+    }
+  ],
+  "rai:dataCollection": "Annotations were created from publicly available YouTube MovieCLIPS source videos. The release contains source URLs and annotation metadata only; it does not redistribute video files.",
+  "rai:dataUseCases": "Research evaluation of multimodal video understanding, speech grounding, speaker-face grounding, and cinematic reasoning.",
+  "rai:dataLimitations": "The source videos are movie clips and may overrepresent Western/Hollywood cinematic style. Availability of source URLs can change over time. Users must retrieve videos under applicable platform terms and copyright constraints. Two grounding intervals use estimated durations, eight revised MCQ distractor sets have not been rechecked against the videos, and two duplicate-question pairs are retained; see datasets/README.md.",
+  "rai:personalSensitiveInformation": "The annotations include normalized face boxes for visible actors in public movie clips. No biometric identity templates are released.",
+  "rai:annotationProtocol": "Annotations were generated through automatic speech/face preprocessing, model-assisted proposal generation, adversarial distractor refinement, and human verification.",
+  "rai:maintenancePlan": "Dataset versions and evaluation code are maintained in this repository. Annotation and evaluation issues can be reported through the repository issue tracker.",
+  "rai:dataBiases": "CineMME is built from publicly available movie clips, so it may reflect selection biases in Hollywood and mainstream film production, including genre, language, geography, demographic representation, and cinematic conventions.",
+  "rai:dataSocialImpact": "The dataset supports reproducible evaluation of multimodal systems, but misuse could include overclaiming real-world social understanding from movie scenes or using face-box annotations outside benchmark evaluation. The release limits data to annotations and source URLs and does not provide biometric templates or video copies.",
+  "rai:hasSyntheticData": true,
+  "prov:wasDerivedFrom": [
+    {
+      "@type": "sc:CreativeWork",
+      "name": "YouTube MovieCLIPS source videos",
+      "url": "https://www.youtube.com/@MOVIECLIPS"
+    }
+  ],
+  "prov:wasGeneratedBy": [
+    {
+      "@type": "prov:Activity",
+      "name": "ASR and face preprocessing",
+      "description": "WhisperX-style ASR and face detection/tracking were used to propose speech and face metadata."
+    },
+    {
+      "@type": "prov:Activity",
+      "name": "Model-assisted question generation and adversarial refinement",
+      "description": "MLLM prompts generated candidate questions and refined distractors before human verification. Later distractor revisions are documented in datasets/README.md."
+    },
+    {
+      "@type": "prov:Activity",
+      "name": "Human verification",
+      "description": "Independent human checks and senior adjudication were used for the original annotations. Version-specific annotation limitations are documented in datasets/README.md."
+    }
+  ],
+  "dateModified": "2026-11-05"
+}

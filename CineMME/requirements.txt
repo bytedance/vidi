@@ -1,0 +1,12 @@
+openai>=1.40.0
+tqdm>=4.66.0
+numpy>=1.24.0
+opencv-python>=4.8.0
+jiwer>=3.0.0
+
+# Optional construction dependencies:
+# whisperx
+# torch
+# av
+# soundfile
+# insightface
