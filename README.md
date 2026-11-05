@@ -13,7 +13,7 @@ Homepage: https://bytedance.github.io/vidi-website/
 
 ## Content
 - [Demo](https://vidi.byteintl.com/)
-- [Evaluation (VUE-PLOT)](#evaluation-vue-plot)
+- [Evaluation (CineMME)](#evaluation-cinemme)
 - [Evaluation (VUE-STG)](#evaluation-vue-stg)
 - [Evaluation (VUE-TR-V2)](#evaluation-vue-tr-v2)
 - [Model Inference and Finetune](#model-inference-and-finetune)
@@ -97,11 +97,20 @@ For evaluation of new models, first download the videos based on the ids in [VUE
 
 You may find the instruction and data for the previous version (VUE-TR) [here](VUE_TR/README.md).
 
-## Evaluation (VUE-PLOT)
-We release the VUE-PLOT benchmark for plot understanding with two tracks, including character and reasoning. Follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to conduct evaluation.
+## Evaluation (CineMME)
+The `CineMME/` directory contains [CineMME](CineMME/README.md), the updated
+benchmark package for cinematic grounding and reasoning. It includes 546 grounding
+videos, 1,600 multiple-choice questions, and 316 open-ended questions, together with
+construction code, inference scripts, and scoring tools.
+
 To evaluate your own model:
-1. You can obtain the raw videos either using the YouTube video IDs or, alternatively, by downloading them from the [Condensed Movies dataset](https://www.robots.ox.ac.uk/~vgg/data/condensed-movies/) homepage.
-2. Generate the results of your own model and follow the instruction in [VUE_PLOT/readme.md](VUE_PLOT/readme.md) to finish the evaluation.
+
+1. Obtain source videos using the YouTube URLs in [the released annotations](CineMME/datasets/README.md).
+2. Run the setup and evaluation commands from `CineMME/`, following the
+   [quick start](CineMME/README.md#quick-start) and [evaluation guide](CineMME/evaluation/README.md).
+
+See the [migration notes](CineMME/MIGRATION.md) for the new file layout, question
+IDs and option order, and the corrected reference answer discussed in issue #36.
 
 
 ## Model Inference and Finetune

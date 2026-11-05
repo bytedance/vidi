@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.pytest_cache/
+
+outputs/
+runs/
+reports/
+failure_response_cases/
+local_videos
+*.log
+tools
+
+.env
+.env.*
